@@ -1,0 +1,23 @@
+{
+  "name": "p2p-video-chat-react",
+  "version": "1.0.0",
+  "description": "Video chat application using React and WebRTC",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jratienza/p2p-video-chat-react.git"
+  },
+  "author": "Johnashly Atienza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jratienza/p2p-video-chat-react/issues"
+  },
+  "homepage": "https://github.com/jratienza/p2p-video-chat-react#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket-io": "^1.0.0"
+  }
+}
