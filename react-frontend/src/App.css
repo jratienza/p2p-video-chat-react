@@ -1,4 +1,98 @@
-.App {
+.textInputContainer {
+  width: 70%;
+}
+
+.logo {
+  width: 100%;
+}
+.modalText {
+  text-align: center;
+}
+.box {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  height: 40%;
+}
+
+.innerbox {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.logo-container {
+  width: 100%;
+  margin-left: 5%;
+  margin-bottom: 10%;
+}
+
+.callControls {
+  margin-top: 5%;
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.video-canvas-lg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 95%;
+  height: 95%;
+  background-color: rgba(195, 224, 229, 0.5);
+  border-radius: 5px;
+  border: 0px;
+}
+
+.video-canvas-sm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 10;
+  width: 30%;
+  right: 0;
+  bottom: 5%;
+}
+
+.video-element-lg {
+  width: 82%;
+  height: 100%;
+  opacity: 1;
+}
+
+.video-element-sm {
+  width: 60%;
+}
+
+.video-label-lg {
+  position: absolute;
+  bottom: 5px;
+  left: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.video-label-sm {
+  position: absolute;
+  bottom: 5px;
+  left: 22%;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.call-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.main .App {
   text-align: center;
 }
 
