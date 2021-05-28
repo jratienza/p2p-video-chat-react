@@ -5,9 +5,12 @@
 .logo {
   width: 100%;
 }
+
 .modalText {
   text-align: center;
+  width: 100%;
 }
+
 .box {
   display: flex;
   flex-wrap: wrap;

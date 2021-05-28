@@ -4,28 +4,35 @@ import EndCallIcon from "@material-ui/icons/CallEnd";
 import CancelIcon from "@material-ui/icons/Cancel";
 import VideocamIcon from "@material-ui/icons/Videocam";
 import AssignmentIcon from "@material-ui/icons/Assignment";
-import io from "socket.io-client";
-import VideoCard from "./components/VideoCard";
-import logo from "./kol-logo.png";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import "./App.css";
 import {
   Button,
   TextField,
-  Typography,
   Grid,
   Box,
   InputAdornment,
   IconButton,
+  useMediaQuery,
+  useTheme,
 } from "@material-ui/core";
 import Styling from "./components/Styling";
 import RingModal from "./components/RingModal";
+import VideoCard from "./components/VideoCard";
 import Peer from "simple-peer";
+import io from "socket.io-client";
 import CopyToClipboard from "react-copy-to-clipboard";
+import logo from "./kol-logo.png";
+
 const socket = io.connect("http://localhost:3001");
 
 const useStyles = Styling();
 
 function App() {
+  const classes = useStyles();
+  const theme = useTheme();
+  const isBreakPoint = useMediaQuery(theme.breakpoints.down("xs"));
+
   const [userId, setUserId] = useState("");
   const [stream, setStream] = useState();
   const [myName, setMyName] = useState("");
@@ -38,12 +45,11 @@ function App() {
   const [isCallEnded, setIsCallEnded] = useState(false);
   const [isCalling, setIsCalling] = useState(false);
   const [callerSignal, setCallerSignal] = useState();
+  const [isSideBarPulledUp, setIsSideBarPulledUp] = useState(false);
 
   const myVideo = useRef();
   const peerVideo = useRef();
   const peerConnectionRef = useRef();
-
-  const classes = useStyles();
 
   useEffect(() => {
     const videoConstraints = {
@@ -51,6 +57,7 @@ function App() {
       height: { max: "720" },
       framerate: { max: "10" },
     };
+
     navigator.mediaDevices
       .getUserMedia({ video: videoConstraints, audio: true })
       .then((mediaStream) => {
@@ -72,6 +79,19 @@ function App() {
       setCallerSignal(payload.callerSignal);
     });
   }, []);
+
+  useEffect(() => {
+    isBreakPoint ? setIsSideBarPulledUp(true) : setIsSideBarPulledUp(false);
+  }, [isBreakPoint]);
+
+  let sideBarClass = isSideBarPulledUp
+    ? classes.sidebarPulledUp
+    : classes.sidebar;
+
+  let SideGridClass = isSideBarPulledUp ? classes.gridSide : null;
+  let pullDownBtnClass =
+    isSideBarPulledUp || isBreakPoint ? classes.dropIconFixedTop : null;
+  let sidebarGridSize = isBreakPoint && !isSideBarPulledUp ? 12 : 3;
 
   const placeCall = (id) => {
     setIsCalling(true);
@@ -157,12 +177,14 @@ function App() {
     });
     setIsReceivingCall(false);
   };
+
   const cancelCall = (id) => {
     setIsCalling(false);
     socket.emit("cancelCall", {
       recipient: id,
     });
   };
+
   const setUserNameValue = (e) => {
     e.preventDefault();
     setMyName(e.target.value);
@@ -171,6 +193,10 @@ function App() {
   const setPeerIDValue = (e) => {
     e.preventDefault();
     setPeerId(e.target.value);
+  };
+
+  const pullDown = () => {
+    setIsSideBarPulledUp(!isSideBarPulledUp);
   };
 
   socket.on("callCanceled", () => {
@@ -192,11 +218,11 @@ function App() {
 
   return (
     <Grid container className={classes.root} spacing={1}>
-      <Grid item xs={3}>
-        <Box className={classes.sidebar}>
+      <Grid item xs={sidebarGridSize} className={SideGridClass}>
+        <Box className={sideBarClass}>
           <div className='container box'>
             <div className='logo-container'>
-              <img className='logo' src={logo}></img>
+              <img className='logo' src={logo} alt='logo'></img>
             </div>
             <div className='innerbox'>
               <div className='textInputContainer'>
@@ -326,6 +352,14 @@ function App() {
             </div>
           </div>
         </Box>
+        <Button
+          color='primary'
+          size='large'
+          variant='contained'
+          onClick={pullDown}
+          className={pullDownBtnClass}
+          startIcon={<ExpandMoreIcon />}
+        ></Button>
       </Grid>
       <Grid item xs={9} className='call-div'>
         <RingModal

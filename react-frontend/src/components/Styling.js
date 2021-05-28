@@ -8,12 +8,23 @@ export default function Styling() {
       margin: theme.spacing(0.5),
     },
     sidebar: {
-      height: "100vh",
+      height: "105vh",
       backgroundColor: "#5885af",
       display: "flex",
       flexWrap: "wrap",
       alignItems: "center",
       justifyContent: "center",
+      zIndex: "10",
+    },
+
+    sidebarPulledUp: {
+      marginTop: "-10000000px",
+    },
+
+    dropIconFixedTop: {
+      position: "absolute",
+      top: "0",
+      zIndex: "15",
     },
     textInputColor: {
       color: "white",
@@ -41,5 +52,10 @@ export default function Styling() {
       },
     },
     cssFocused: { color: "white !important" },
+
+    gridSide: {
+      position: "relative",
+      marginRight: "-12%",
+    },
   }));
 }
